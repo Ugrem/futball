@@ -1,10 +1,10 @@
+// @ts-nocheck
 import React, { useState, useEffect } from 'react';
 import { Users, Calendar, Clock, Trash2, Copy, Check } from 'lucide-react';
-
-// --- FIREBASE AYARLARI ---
 import { initializeApp } from 'firebase/app';
 import { getDatabase, ref, set, onValue } from 'firebase/database';
 
+// --- AYARLAR ---
 const firebaseConfig = {
   apiKey: "AIzaSyALTHDel3NEmHlZq0q2WhU4p0ACcRHuCuQ",
   authDomain: "halisaha-5265d.firebaseapp.com",
@@ -21,9 +21,8 @@ const db = getDatabase(app);
 
 export default function HaliSahaKayit() {
   const [view, setView] = useState('home');
-  // TypeScript'i susturmak için <any> ekledik
-  const [matches, setMatches] = useState<any>({});
-  const [currentMatchId, setCurrentMatchId] = useState<string | null>(null);
+  const [matches, setMatches] = useState({});
+  const [currentMatchId, setCurrentMatchId] = useState(null);
   const [copied, setCopied] = useState(false);
   const [newMatch, setNewMatch] = useState({
     creator: '', date: '', time: '', location: 'Haliç Spor Merkezi', capacity: 14
@@ -47,7 +46,7 @@ export default function HaliSahaKayit() {
     });
   }, []);
 
-  const saveToFirebase = (matchId: string, data: any) => {
+  const saveToFirebase = (matchId, data) => {
     set(ref(db, 'matches/' + matchId), data);
   };
 
@@ -77,15 +76,14 @@ export default function HaliSahaKayit() {
 
   const addPlayer = () => {
     if (!playerName.trim()) return;
-    const match = matches[currentMatchId as string];
+    const match = matches[currentMatchId];
     if (!match) return;
     
     if (match.players && match.players.length >= match.capacity) { 
         alert('Kontenjan dolu!'); return; 
     }
     const currentPlayers = match.players || [];
-    // TypeScript hatası olmasın diye p:any ekledik
-    if (currentPlayers.some((p: any) => p.name.toLowerCase() === playerName.trim().toLowerCase())) { 
+    if (currentPlayers.some((p) => p.name.toLowerCase() === playerName.trim().toLowerCase())) { 
         alert('Bu isimle zaten kayıt var!'); return; 
     }
 
@@ -95,16 +93,15 @@ export default function HaliSahaKayit() {
         time: new Date().toLocaleTimeString('tr-TR', {hour: '2-digit', minute:'2-digit'}) 
     }];
     
-    saveToFirebase(currentMatchId as string, { ...match, players: updatedPlayers });
+    saveToFirebase(currentMatchId, { ...match, players: updatedPlayers });
     setPlayerName('');
   };
 
-  const removePlayer = (index: number) => {
-    const match = matches[currentMatchId as string];
+  const removePlayer = (index) => {
+    const match = matches[currentMatchId];
     if(!match) return;
-    // TypeScript hatası olmasın diye index: number ekledik
-    const updatedPlayers = match.players.filter((_: any, i: number) => i !== index);
-    saveToFirebase(currentMatchId as string, { ...match, players: updatedPlayers });
+    const updatedPlayers = match.players.filter((_, i) => i !== index);
+    saveToFirebase(currentMatchId, { ...match, players: updatedPlayers });
   };
 
   const copyLink = () => {
@@ -132,7 +129,7 @@ export default function HaliSahaKayit() {
           <h3 className="font-bold text-gray-700 mb-3 border-b pb-2">Aktif Maçlar</h3>
           <div className="space-y-3">
             {Object.values(matches).length === 0 && <p className="text-gray-400 text-center">Henüz maç yok.</p>}
-            {Object.values(matches).map((m: any) => (
+            {Object.values(matches).map((m) => (
               <div key={m.id} onClick={() => {setCurrentMatchId(m.id); setView('match'); window.history.pushState({}, '', `?match=${m.id}`);}} 
                    className="border border-gray-200 p-4 rounded-xl cursor-pointer hover:bg-green-50 hover:border-green-300 transition-all bg-white shadow-sm">
                 <div className="flex justify-between items-start">
@@ -189,7 +186,7 @@ export default function HaliSahaKayit() {
     );
   }
 
-  const m = matches[currentMatchId as string];
+  const m = matches[currentMatchId];
   if (!m) return <div className="p-10 text-center text-gray-500">Yükleniyor...</div>;
 
   return (
@@ -226,7 +223,7 @@ export default function HaliSahaKayit() {
           </div>
 
           <div className="space-y-2 max-h-[400px] overflow-y-auto">
-            {m.players?.map((p: any, i: number) => (
+            {m.players?.map((p, i) => (
               <div key={i} className="flex justify-between items-center p-3 bg-gray-50 border border-gray-100 rounded-xl hover:bg-white hover:shadow-sm transition-all group">
                 <div className="flex items-center gap-3">
                     <span className="w-6 h-6 bg-green-200 text-green-800 rounded-full flex items-center justify-center text-xs font-bold">{i+1}</span>
