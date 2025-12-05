@@ -182,12 +182,11 @@ export default function HaliSahaKayit() {
   if (view === 'home') {
     return (
       <div className="min-h-screen flex items-center justify-center p-4">
-        {/* CSS'ten gelen .glass-panel sınıfını kullandık */}
         <div className="glass-panel w-full max-w-lg rounded-[2rem] p-10 text-center animate-fade-in">
           <div className="bg-white w-24 h-24 mx-auto rounded-full flex items-center justify-center mb-6 shadow-lg">
             <Trophy size={48} className="text-green-600" />
           </div>
-          <h1 className="text-4xl font-extrabold text-gray-900 mb-3 tracking-tight">Halı Saha </h1>
+          <h1 className="text-4xl font-extrabold text-gray-900 mb-3 tracking-tight">Halı Saha</h1>
           <p className="text-gray-700 mb-10 font-medium text-lg">Maçını planla, kadronu kur, efsane ol!</p>
           
           <button onClick={() => setView('create')} className="btn-primary w-full text-white py-5 rounded-2xl font-bold text-xl shadow-xl flex items-center justify-center gap-3">
@@ -237,10 +236,8 @@ export default function HaliSahaKayit() {
 
   return (
     <div className="min-h-screen p-4 md:p-8 flex flex-col items-center">
-      {/* Kart Konteyner */}
       <div className="w-full max-w-5xl glass-panel rounded-[2.5rem] shadow-2xl overflow-hidden flex flex-col md:flex-row min-h-[650px] animate-fade-in">
         
-        {/* SOL TARAF: Bilgi Paneli */}
         <div className="bg-gradient-to-br from-gray-900 to-gray-800 text-white p-8 md:w-1/3 flex flex-col justify-between relative overflow-hidden">
             <div className="absolute top-0 right-0 w-80 h-80 bg-green-500 rounded-full blur-[120px] opacity-20 -mr-32 -mt-32"></div>
             
@@ -264,10 +261,8 @@ export default function HaliSahaKayit() {
             </div>
         </div>
 
-        {/* SAĞ TARAF: Kadro Listesi */}
         <div className="p-6 md:p-10 md:w-2/3 bg-white/60 backdrop-blur-md flex flex-col">
             
-            {/* WHATSAPP BUTONU (Sadece doluysa) */}
             {isFull ? (
                 <div className="mb-8 animate-pulse">
                     <button onClick={shareToWhatsApp} className="w-full bg-green-500 hover:bg-green-600 text-white py-5 rounded-2xl font-bold shadow-xl flex items-center justify-center gap-3 transition-all transform hover:scale-[1.02]">
@@ -275,9 +270,9 @@ export default function HaliSahaKayit() {
                     </button>
                 </div>
             ) : (
-                /* EKLEME INPUTU */
                 userRole !== 'player' && (
-                    <div className="flex gap-4 mb-8">
+                    // DÜZELTME BURADA: items-center eklendi
+                    <div className="flex items-center gap-4 mb-8">
                         <input 
                             className="input-glass flex-1 p-5 rounded-2xl font-bold text-lg text-gray-900 placeholder-gray-500 shadow-sm" 
                             placeholder="Adını yaz ve katıl..." 
@@ -285,7 +280,7 @@ export default function HaliSahaKayit() {
                             onChange={e=>setPlayerName(e.target.value)}
                             onKeyDown={(e) => e.key === 'Enter' && addPlayer()}
                         />
-                        <button onClick={addPlayer} className="bg-gray-900 hover:bg-black text-white px-8 rounded-2xl font-bold shadow-lg transition-all flex items-center">
+                        <button onClick={addPlayer} className="bg-gray-900 hover:bg-black text-white px-8 rounded-2xl font-bold shadow-lg transition-all flex items-center h-full">
                             <PlusCircle size={24}/>
                         </button>
                     </div>
@@ -305,7 +300,6 @@ export default function HaliSahaKayit() {
                         const canEdit = (userRole === 'creator') || isMe;
 
                         return (
-                            // CSS'ten gelen .player-card sınıfını kullandık
                             <div key={i} className={`player-card p-4 rounded-xl flex items-center justify-between ${isMe ? 'border-l-4 border-l-green-500 bg-white' : ''}`}>
                                 <div className="flex items-center gap-4">
                                     <span className={`w-10 h-10 rounded-full flex items-center justify-center font-black text-lg shadow-sm ${isCreator ? 'bg-yellow-400 text-yellow-900' : 'bg-gray-200 text-gray-600'}`}>{i+1}</span>
