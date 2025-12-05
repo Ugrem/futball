@@ -1,6 +1,6 @@
 // @ts-nocheck
 import React, { useState, useEffect } from 'react';
-import { Users, Calendar, Clock, Trash2, Copy, Check, Trophy, PlusCircle, ArrowLeft, MapPin, Edit2, MessageCircle } from 'lucide-react';
+import { Users, Calendar, Clock, Trash2, Copy, Check, Trophy, ArrowLeft, MapPin, Edit2, MessageCircle } from 'lucide-react';
 import { initializeApp } from 'firebase/app';
 import { getDatabase, ref, set, onValue } from 'firebase/database';
 
@@ -190,7 +190,7 @@ export default function HaliSahaKayit() {
           <p className="text-gray-700 mb-10 font-medium text-lg">Maçını planla, kadronu kur, efsane ol!</p>
           
           <button onClick={() => setView('create')} className="btn-primary w-full text-white py-5 rounded-2xl font-bold text-xl shadow-xl flex items-center justify-center gap-3">
-            <PlusCircle size={28} /> Yeni Maç Oluştur
+            Yeni Maç Oluştur
           </button>
         </div>
       </div>
@@ -271,17 +271,17 @@ export default function HaliSahaKayit() {
                 </div>
             ) : (
                 userRole !== 'player' && (
-                    // DÜZELTME BURADA: items-center eklendi
-                    <div className="flex items-center gap-4 mb-8">
+                    // --- DÜZELTME BURADA: Senin CSS sınıflarını kullandık ---
+                    <div className="input-row">
                         <input 
-                            className="input-glass flex-1 p-5 rounded-2xl font-bold text-lg text-gray-900 placeholder-gray-500 shadow-sm" 
+                            type="text" 
                             placeholder="Adını yaz ve katıl..." 
                             value={playerName} 
                             onChange={e=>setPlayerName(e.target.value)}
                             onKeyDown={(e) => e.key === 'Enter' && addPlayer()}
                         />
-                        <button onClick={addPlayer} className="bg-gray-900 hover:bg-black text-white px-8 rounded-2xl font-bold shadow-lg transition-all flex items-center h-full">
-                            <PlusCircle size={24}/>
+                        <button className="add-btn" onClick={addPlayer}>
+                            +
                         </button>
                     </div>
                 )
@@ -302,19 +302,19 @@ export default function HaliSahaKayit() {
                         return (
                             <div key={i} className={`player-card p-4 rounded-xl flex items-center justify-between ${isMe ? 'border-l-4 border-l-green-500 bg-white' : ''}`}>
                                 <div className="flex items-center gap-4">
-                                    <span className={`w-10 h-10 rounded-full flex items-center justify-center font-black text-lg shadow-sm ${isCreator ? 'bg-yellow-400 text-yellow-900' : 'bg-gray-200 text-gray-600'}`}>{i+1}</span>
+                                    <span className={`w-10 h-10 rounded-full flex items-center justify-center font-black text-lg shadow-sm flex-shrink-0 ${isCreator ? 'bg-yellow-400 text-yellow-900' : 'bg-gray-200 text-gray-600'}`}>{i+1}</span>
                                     
                                     {editingPlayerId === p.id ? (
-                                        <div className="flex gap-2">
-                                            <input className="w-40 p-2 rounded border-2 border-green-500 text-gray-900 font-bold" value={editNameValue} onChange={e=>setEditNameValue(e.target.value)} autoFocus />
-                                            <button onClick={()=>saveEdit(p.id)} className="bg-green-600 text-white p-2 rounded-lg"><Check size={18}/></button>
+                                        <div className="flex gap-2 w-full">
+                                            <input className="w-full p-2 rounded border-2 border-green-500 text-gray-900 font-bold" value={editNameValue} onChange={e=>setEditNameValue(e.target.value)} autoFocus />
+                                            <button onClick={()=>saveEdit(p.id)} className="bg-green-600 text-white p-2 rounded-lg flex-shrink-0"><Check size={18}/></button>
                                         </div>
                                     ) : (
-                                        <div className="flex flex-col">
-                                            <span className="font-bold text-gray-800 text-lg flex items-center gap-2">
+                                        <div className="flex flex-col min-w-0">
+                                            <span className="font-bold text-gray-800 text-lg flex items-center gap-2 truncate">
                                                 {p.name}
-                                                {isCreator && <Trophy size={16} className="text-yellow-500 fill-yellow-500"/>}
-                                                {isMe && <span className="text-[10px] bg-green-100 text-green-800 px-2 py-0.5 rounded border border-green-200">SEN</span>}
+                                                {isCreator && <Trophy size={16} className="text-yellow-500 fill-yellow-500 flex-shrink-0"/>}
+                                                {isMe && <span className="text-[10px] bg-green-100 text-green-800 px-2 py-0.5 rounded border border-green-200 flex-shrink-0">SEN</span>}
                                             </span>
                                             <span className="text-xs text-gray-500 font-medium">{p.time}</span>
                                         </div>
@@ -322,7 +322,7 @@ export default function HaliSahaKayit() {
                                 </div>
 
                                 {canEdit && !editingPlayerId && (
-                                    <div className="flex gap-2">
+                                    <div className="flex gap-2 flex-shrink-0">
                                         <button onClick={()=>startEditing(p)} className="p-2 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all" title="İsmi Düzenle"><Edit2 size={18}/></button>
                                         <button onClick={()=>removePlayer(p.id)} className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all" title="Kişiyi Sil"><Trash2 size={18}/></button>
                                     </div>

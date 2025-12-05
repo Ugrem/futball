@@ -102,3 +102,62 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(255,255,255,0.8);
 }
+
+/* --- SENİN KODLARIN (GÜÇLENDİRİLMİŞ HALİ) --- */
+
+.input-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  margin-bottom: 32px;
+}
+
+/* Input kutusunun davranışı */
+.input-row input {
+  flex: 1;             /* Tüm boşluğu kapla */
+  min-width: 0;        /* Android taşmasını engelle */
+  height: 64px;        /* Yükseklik */
+  /* Cam Efekti Devam Etsin */
+  background: rgba(255, 255, 255, 0.8);
+  border: 2px solid transparent;
+  border-radius: 16px;
+  padding: 0 20px;
+  font-size: 18px;
+  font-weight: 700;
+  color: #1f2937;
+  outline: none;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.input-row input:focus {
+  background: #ffffff;
+  border-color: #22c55e;
+  box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.1);
+}
+
+/* Butonun Davranışı (Senin Kodun) */
+.add-btn {
+  width: 64px;
+  height: 64px;
+  flex-shrink: 0;      /* ASLA KÜÇÜLME! */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  background: #111827; /* Koyu siyah/gri */
+  color: white;
+  border-radius: 16px; /* Karemsi yuvarlak (Tasarıma uysun diye) */
+  
+  font-size: 32px;
+  line-height: 1;      /* Safari/Android kaymasını önler */
+  padding: 0;          /* İç boşluğu sıfırla */
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s;
+}
+
+.add-btn:active {
+  transform: scale(0.95); /* Tıklama efekti */
+}
