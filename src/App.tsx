@@ -334,7 +334,7 @@ export default function HaliSahaKayit() {
             </div>
         </div>
       </div>
-      <div className="mt-6 text-white/50 text-sm font-medium">Ugrem tarafından tasarlandı</div>
+      <div className="mt-6 text-white/50 text-sm font-medium">Yusuf Can tarafından tasarlandı</div>
     </div>
   );
 }
