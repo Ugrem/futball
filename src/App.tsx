@@ -58,7 +58,7 @@ const translations = {
     alertFull: "🎉 TEBRİKLER! Kadro doldu!",
     alertLeft: "⚠️ DİKKAT! Biri kadrodan çıktı!",
     shortName: "İsim en az 3 harf olmalı!",
-    footer: "Made with ❤️",
+    footer: "YUSUF CAN tarafindan oluşturuldu!",
     quotes: [
       "Sahaya çık ve efsane ol! 🔥",
       "Bugün kazanmak için harika bir gün! ⚽",
